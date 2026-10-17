@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>StyleClash</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="StyleClash">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#faf9f6">
+<link rel="apple-touch-icon" id="icon" href="">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#faf9f6;--card:#fff;--ink:#1b1a17;--mute:#9a968c;--gold:#8a6a1f;--red:#c0392b;--line:#e8e5dc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15140f;--card:#201f19;--ink:#f2efe6;--mute:#8d897e;--gold:#d4a73f;--red:#e0584a;--line:#34322a}}
+:root[data-theme="dark"]{--bg:#15140f;--card:#201f19;--ink:#f2efe6;--mute:#8d897e;--gold:#d4a73f;--red:#e0584a;--line:#34322a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Inter,-apple-system,Helvetica,Arial,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
+.wrap{max-width:560px;margin:0 auto;padding:18px 20px}
+.logo{font:400 22px Anton,Impact,sans-serif;letter-spacing:.02em;display:flex;align-items:center;gap:8px;text-transform:uppercase}
+.logo i{width:12px;height:12px;border:2px solid var(--gold);border-radius:50%}
+h1{font:400 40px/1.1 Inter,sans-serif;letter-spacing:-.02em;margin:28px 0 12px;font-weight:500}
+h1 em{font-style:normal;color:var(--gold)}
+h2{font:500 26px/1.2 Inter;letter-spacing:-.01em;margin:6px 0 10px}
+p{color:var(--mute);margin:0 0 14px}
+.btn{border:0;border-radius:12px;padding:13px 18px;font:700 15px Inter;background:var(--ink);color:var(--bg);cursor:pointer}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.sm{padding:9px 13px;font-size:13px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+.big{font:400 34px Anton,Impact,sans-serif;color:var(--red)}
+.tag{background:var(--card);border-radius:10px 10px 16px 16px;box-shadow:0 14px 30px rgba(0,0,0,.14);padding:18px 18px 14px;transform:rotate(-2deg);margin:22px 6px;position:relative;border:1px solid var(--line)}
+.tag:before{content:"";position:absolute;top:10px;left:50%;width:14px;height:14px;margin-left:-7px;border:2px solid var(--ink);border-radius:50%}
+.tag h3{font:400 30px Anton,Impact,sans-serif;text-align:center;margin:20px 0 10px;text-transform:uppercase}
+.ln{display:flex;justify-content:space-between;gap:10px;border-top:1px dashed var(--line);padding:8px 0;font:500 13px/1.3 ui-monospace,Menlo,monospace}
+.ln b{font-weight:500;text-align:right}
+.score{text-align:center;font:400 44px Anton,Impact;color:var(--red);margin-top:6px}
+.miss{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 10px 30px;transform:rotate(1.5deg)}
+.miss small{display:block;color:var(--mute);font:500 11px ui-monospace,Menlo,monospace}
+.miss strong{color:var(--gold);font-weight:500;font-size:18px}
+.miss a{color:var(--red);font-size:13px;font-weight:700;text-decoration:none}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative}
+.item .ph{aspect-ratio:1;background-size:cover;background-position:center;display:grid;place-items:center;font:400 24px Anton}
+.item div.n{padding:6px 8px;font-size:12px;line-height:1.25}
+.item button{position:absolute;top:4px;right:4px;border:0;background:rgba(0,0,0,.45);color:#fff;width:22px;height:22px;border-radius:50%;font-size:13px}
+label{display:block;font-size:12px;color:var(--mute);margin:10px 0 4px}
+input,select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:16px Inter}
+input[type=range]{padding:0}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{padding:8px 13px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 14px Inter}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+nav{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
+nav button{flex:1;background:none;border:0;padding:11px 0 9px;color:var(--mute);font:500 11px Inter;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7}
+nav button.on{color:var(--red)}
+.screen{display:none}.screen.on{display:block}
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;text-align:left;color:var(--ink);font:500 14px/1.45 Inter;box-shadow:0 8px 20px rgba(0,0,0,.08);min-height:200px;position:relative;transition:transform .2s}
+.opt:active{transform:scale(.97)}
+.opt h4{margin:0 0 8px;font:400 13px ui-monospace,Menlo,monospace;color:var(--mute)}
+.opt .pct{font:400 38px Anton;position:absolute;left:14px;bottom:10px;color:var(--red)}
+.opt.lose .pct{color:var(--mute)}
+.price{font:500 28px Inter}
+ul.f{padding-left:18px;margin:10px 0 14px}
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+.toast.on{opacity:1}
+.hint{border:1px dashed var(--gold);border-radius:14px;padding:12px 14px;font-size:14px;color:var(--mute)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<section class="screen on" id="s-home">
+  <div class="logo"><i></i>StyleClash</div>
+  <h1>Твоя шафа <em>розумніша за стиліста</em></h1>
+  <p>Сфотографуй одяг один раз — і щодня отримуй готовий образ, батли луків з друзями та підказку, що докупити, щоб вигляд був на 10 балів.</p>
+  <div class="row"><button class="btn" data-go="look">Зібрати перший лук</button><button class="btn ghost" data-go="how">Як це працює</button></div>
+
+  <div class="tag"><h3>Look #042</h3>
+    <div class="ln"><span>СКЛАД</span><b>ТВОЯ ШАФА</b></div>
+    <div class="ln"><span>ПОГОДА</span><b>+14°, ВІТЕР</b></div>
+    <div class="ln"><span>ПРИВІД</span><b>ПОБАЧЕННЯ</b></div>
+    <div class="score">10/10</div></div>
+
+  <p style="text-align:center;color:var(--ink);font-size:20px;margin:30px 0 4px">Шафа тріщить, а вдягти нічого.</p>
+  <p style="text-align:center;color:var(--red);font:500 12px ui-monospace,Menlo,monospace">кожен ранок, мільйони людей</p>
+
+  <div id="how" style="margin-top:34px">
+    <h2>Від фото до готового луку — за чотири кроки</h2>
+    <p>Жодного ручного сортування: застосунок розбирає одяг за категоріями, кольорами й сезонами.</p>
+    <div class="card"><span class="big">01</span><br><b>Скануєш гардероб</b><p style="margin:4px 0 0">Додай фото речей — кожна річ потрапить у цифрову шафу.</p></div>
+    <div class="card"><span class="big">02</span><br><b>ШІ будує образи</b><p style="margin:4px 0 0">Враховує погоду, привід та те, що ти вже носив цього тижня.</p></div>
+    <div class="card"><span class="big">03</span><br><b>Докуповуєш те, чого бракує</b><p style="margin:4px 0 0">Якщо для луку 10/10 не вистачає однієї речі — ось пряме посилання на неї.</p></div>
+    <div class="card"><span class="big">04</span><br><b>Виставляєш у батл</b><p style="margin:4px 0 0">Друзі та спільнота свайпають образи — найкращі потрапляють у топ тижня.</p></div>
+  </div>
+
+  <h2 style="margin-top:34px">Почни безкоштовно, прокачайся до особистого стиліста</h2>
+  <div class="card"><b style="color:var(--gold)">Без картки</b><h2 style="margin:4px 0">Базовий</h2><div class="price">0 ₴ <small style="font-size:14px;color:var(--mute)">/ завжди</small></div>
+    <ul class="f"><li>Цифровий гардероб без ліміту</li><li>Один лук на день</li><li>Участь у Style Battles</li></ul>
+    <button class="btn ghost" style="width:100%" data-go="look">Користуватись безкоштовно</button></div>
+  <div class="card" style="border-color:var(--red)"><b style="color:var(--red)">Premium</b><h2 style="margin:4px 0">Особистий стиліст</h2><div class="price">від 249 ₴ <small style="font-size:14px;color:var(--mute)">/ місяць</small></div>
+    <ul class="f"><li>Безліміт образів під погоду й привід</li><li>Аналіз фігури та кольоротипу</li><li>Ранній доступ до дропів брендів-партнерів</li></ul>
+    <button class="btn" style="width:100%" id="prem">Оформити Premium</button></div>
+  <p style="font-size:14px"><b style="color:var(--gold)">Для брендів:</b> розмісти нову колекцію в рекомендаціях AI-стиліста і потрап у гардероби сотень тисяч користувачів.</p>
+  <div id="ios" class="hint">Щоб встановити на iPhone: відкрийте сторінку в Safari → «Поділитися» → «На екран “Додому”».</div>
+  <p style="text-align:center;font:500 11px ui-monospace,Menlo,monospace;margin-top:30px">© StyleClash. Зібрано з твоєї шафи</p>
+</section>
+
+<section class="screen" id="s-wardrobe">
+  <h2>Шафа <span id="cnt" style="color:var(--mute);font-size:18px"></span></h2>
+  <div class="card">
+    <b>Додати річ</b>
+    <label>Фото (необов’язково)</label><input type="file" id="f-photo" accept="image/*">
+    <label>Назва</label><input id="f-name" placeholder="Напр.: Білі кросівки">
+    <label>Категорія</label><select id="f-cat"><option value="top">Верх</option><option value="bottom">Низ</option><option value="shoes">Взуття</option><option value="outer">Верхній одяг</option></select>
+    <label>Колір</label><select id="f-color"></select>
+    <label>Стиль</label><select id="f-style"><option>Кежуал</option><option>Класика</option><option>Спорт</option></select>
+    <div style="margin-top:14px"><button class="btn" id="f-add">Додати в шафу</button></div>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<section class="screen" id="s-look">
+  <h2>Лук на сьогодні</h2>
+  <label>Температура: <b id="t-val">14</b>°C</label><input type="range" id="temp" min="-15" max="35" value="14">
+  <label>Привід</label><div class="chips" id="occ"></div>
+  <div id="lookOut"></div>
+  <div class="row" id="lookBtns" style="margin-top:6px"><button class="btn" id="wear">Одягну це</button><button class="btn ghost" id="again">Інший варіант</button></div>
+</section>
+
+<section class="screen" id="s-battle">
+  <h2>Style Battles</h2>
+  <p>Торкнись луку, який подобається більше. Спільнота оцінює образи за секунди.</p>
+  <div class="vs" id="vs"></div>
+  <div class="row"><button class="btn ghost" id="next">Наступна пара</button></div>
+  <div class="card" style="margin-top:18px"><b>Топ тижня</b><p style="margin:4px 0 0">Найстильніші луки отримують знижки й мерч від брендів-партнерів. Твоїх голосів: <b id="vc">0</b></p></div>
+</section>
+</div>
+
+<nav id="nav">
+  <button data-go="home" class="on"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/></svg>Головна</button>
+  <button data-go="look"><svg viewBox="0 0 24 24"><path d="M12 3l9 9-9 9-9-9z"/></svg>Лук</button>
+  <button data-go="wardrobe"><svg viewBox="0 0 24 24"><path d="M9 4l3 2 3-2 5 4-2 3-2-1v10H8V10l-2 1-2-3z"/></svg>Шафа</button>
+  <button data-go="battle"><svg viewBox="0 0 24 24"><path d="M5 5l7 7M19 5l-7 7M5 19l4-4M19 19l-4-4"/></svg>Батл</button>
+</nav>
+<div class="toast" id="toast"></div>
+
+<script>
+var COLORS={"Білий":"#f4f4f0","Чорний":"#1b1a17","Сірий":"#8c8c8c","Бежевий":"#d8c7a5","Синій":"#2f4b7c","Червоний":"#c0392b","Зелений":"#4b7a4f"};
+var NEUTRAL=["Білий","Чорний","Сірий","Бежевий"];
+var CATS={top:"Верх",bottom:"Низ",shoes:"Взуття",outer:"Верхній одяг"};
+var MISS={top:"Біла футболка",bottom:"Чорні джинси",shoes:"Білі кросівки",outer:"Тренч"};
+var PRICE={top:690,bottom:1490,shoes:1690,outer:3290};
+var OCC={"Прогулянка":"Кежуал","Побачення":"Класика","Робота":"Класика","Спорт":"Спорт"};
+var S={items:[],worn:{},votes:0};
+var seed=[["Біла футболка","top","Білий","Кежуал"],["Сірий светр","top","Сірий","Класика"],["Чорні джинси","bottom","Чорний","Кежуал"],["Сині джинси","bottom","Синій","Кежуал"],["Бежеве пальто","outer","Бежевий","Класика"]];
+try{var raw=localStorage.getItem("sc1");if(raw)S=JSON.parse(raw)}catch(e){}
+if(!S.items.length&&!S.seeded){S.items=seed.map(function(a,i){return{id:i+1,name:a[0],cat:a[1],color:a[2],style:a[3],photo:""}});S.seeded=1}
+function save(){try{localStorage.setItem("sc1",JSON.stringify(S))}catch(e){}}
+function $(i){return document.getElementById(i)}
+function toast(t){var e=$("toast");e.textContent=t;e.classList.add("on");setTimeout(function(){e.classList.remove("on")},1800)}
+
+/* navigation */
+function go(n){
+  if(n==="how"){go("home");setTimeout(function(){$("how").scrollIntoView({behavior:"smooth"})},30);return}
+  document.querySelectorAll(".screen").forEach(function(s){s.classList.toggle("on",s.id==="s-"+n)});
+  document.querySelectorAll("#nav button").forEach(function(b){b.classList.toggle("on",b.dataset.go===n)});
+  window.scrollTo(0,0);
+  if(n==="look")makeLook();if(n==="wardrobe")renderGrid();if(n==="battle")newPair();
+}
+document.addEventListener("click",function(e){var b=e.target.closest("[data-go]");if(b)go(b.dataset.go)});
+$("prem").onclick=function(){toast("Premium скоро — ви в списку очікування")};
+if(navigator.standalone)$("ios").style.display="none";
+
+/* wardrobe */
+var sel=$("f-color");Object.keys(COLORS).forEach(function(c){sel.add(new Option(c,c))});
+function renderGrid(){
+  $("cnt").textContent="("+S.items.length+")";
+  $("grid").innerHTML=S.items.length?"":'<div class="hint" style="grid-column:1/-1">Шафа порожня. Додай першу річ — і лук збереться сам.</div>';
+  S.items.forEach(function(it){
+    var d=document.createElement("div");d.className="item";
+    d.innerHTML='<div class="ph" style="background-color:'+COLORS[it.color]+(it.photo?';background-image:url('+it.photo+')':'')+'">'+(it.photo?"":'<span style="color:'+(it.color==="Білий"||it.color==="Бежевий"?"#555":"#fff")+'">'+CATS[it.cat][0]+'</span>')+'</div><div class="n"><b></b><br><span style="color:var(--mute)">'+CATS[it.cat]+' · '+it.color+'</span></div><button aria-label="Видалити">×</button>';
+    d.querySelector("b").textContent=it.name;
+    d.querySelector("button").onclick=function(){S.items=S.items.filter(function(x){return x.id!==it.id});save();renderGrid()};
+    $("grid").appendChild(d);
+  });
+}
+function readPhoto(file,cb){
+  if(!file)return cb("");
+  var r=new FileReader();r.onload=function(){var im=new Image();im.onload=function(){
+    var c=document.createElement("canvas"),s=200,m=Math.min(im.width,im.height);c.width=c.height=s;
+    c.getContext("2d").drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,s,s);cb(c.toDataURL("image/jpeg",.7))};im.onerror=function(){cb("")};im.src=r.result};
+  r.onerror=function(){cb("")};r.readAsDataURL(file);
+}
+$("f-add").onclick=function(){
+  var name=$("f-name").value.trim();if(!name){toast("Вкажи назву речі");return}
+  readPhoto($("f-photo").files[0],function(ph){
+    S.items.push({id:Date.now(),name:name,cat:$("f-cat").value,color:$("f-color").value,style:$("f-style").value,photo:ph});
+    save();$("f-name").value="";$("f-photo").value="";renderGrid();toast("Додано в шафу");
+  });
+};
+
+/* look engine */
+var occ="Прогулянка",cur=null,nr=42;
+Object.keys(OCC).forEach(function(o){var b=document.createElement("button");b.className="chip"+(o===occ?" on":"");b.textContent=o;b.onclick=function(){occ=o;document.querySelectorAll("#occ .chip").forEach(function(c){c.classList.toggle("on",c.textContent===o)});makeLook()};$("occ").appendChild(b)});
+$("temp").oninput=function(){$("t-val").textContent=this.value;makeLook()};
+function pick(cat,temp,o){
+  var list=S.items.filter(function(i){return i.cat===cat});if(!list.length)return null;
+  var now=Date.now(),best=null,bs=-9;
+  list.forEach(function(i){
+    var s=Math.random();
+    if(i.style===OCC[o])s+=2;
+    if(S.worn[i.id]&&now-S.worn[i.id]<3*864e5)s-=3;
+    if(s>bs){bs=s;best=i}
+  });return best;
+}
+function genLook(o,temp){
+  var need=["top","bottom","shoes"];if(temp<15)need.push("outer");
+  var parts={},miss=[];
+  need.forEach(function(c){var p=pick(c,temp,o);if(p)parts[c]=p;else miss.push(c)});
+  var accents=[parts.top,parts.bottom].filter(function(i){return i&&NEUTRAL.indexOf(i.color)<0}).length;
+  var score=10*(need.length-miss.length)/need.length;
+  if(miss.length)score=Math.min(score,8);
+  if(accents>1)score-=2;
+  if(parts.top&&parts.bottom&&parts.top.color===parts.bottom.color)score-=1;
+  return{parts:parts,miss:miss,score:Math.max(1,Math.round(score)),n:nr++,temp:temp,occ:o};
+}
+function lookHTML(L){
+  var h='<div class="tag"><h3>Look #'+String(L.n).padStart(3,"0")+'</h3>';
+  Object.keys(L.parts).forEach(function(c){h+='<div class="ln"><span>'+CATS[c].toUpperCase()+'</span><b>'+esc(L.parts[c].name).toUpperCase()+'</b></div>'});
+  h+='<div class="ln"><span>ПОГОДА</span><b>'+(L.temp>0?"+":"")+L.temp+'°</b></div><div class="ln"><span>ПРИВІД</span><b>'+L.occ.toUpperCase()+'</b></div><div class="score">'+L.score+'/10</div></div>';
+  L.miss.forEach(function(c){h+='<div class="miss"><small>НЕ ВИСТАЧАЄ</small><strong>'+MISS[c]+'</strong><br><a href="https://www.google.com/search?tbm=shop&q='+encodeURIComponent(MISS[c])+'" target="_blank" rel="noopener">Купити за '+PRICE[c]+' ₴</a></div>'});
+  return h;
+}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function makeLook(){
+  var t=+$("temp").value;
+  if(!S.items.length){$("lookOut").innerHTML='<div class="hint" style="margin:14px 0">Спершу додай речі в шафу.</div>';$("lookBtns").style.display="none";return}
+  $("lookBtns").style.display="flex";cur=genLook(occ,t);$("lookOut").innerHTML=lookHTML(cur);
+}
+$("again").onclick=makeLook;
+$("wear").onclick=function(){if(!cur)return;Object.keys(cur.parts).forEach(function(c){S.worn[cur.parts[c].id]=Date.now()});save();toast("Записано — завтра запропонуємо інше")};
+
+/* battles */
+var pair=[],base=[0,0];
+function lineOf(L){return Object.keys(L.parts).map(function(c){return esc(L.parts[c].name)}).join("<br>")||"—"}
+function newPair(){
+  if(!S.items.length){$("vs").innerHTML='<div class="hint" style="grid-column:1/-1">Додай речі в шафу, щоб запустити батл.</div>';return}
+  var t=+$("temp").value;pair=[genLook(occ,t),genLook(occ,t)];
+  var a=30+Math.floor(Math.random()*41);base=[a,100-a];
+  $("vs").innerHTML="";
+  ["А","Б"].forEach(function(n,i){var b=document.createElement("button");b.className="opt";b.innerHTML="<h4>ЛУК "+n+"</h4>"+lineOf(pair[i])+"<br><small style='color:var(--mute)'>"+pair[i].score+"/10</small>";b.onclick=function(){vote(i)};$("vs").appendChild(b)});
+}
+function vote(i){
+  var o=document.querySelectorAll("#vs .opt");if(o[0].querySelector(".pct"))return;
+  S.votes++;save();$("vc").textContent=S.votes;
+  var p=[base[0],base[1]];p[i]=Math.min(95,p[i]+8);p[1-i]=100-p[i];
+  o.forEach(function(b,k){var s=document.createElement("span");s.className="pct";s.textContent=p[k]+"%";b.appendChild(s);if(k!==i)b.classList.add("lose")});
+}
+$("next").onclick=newPair;$("vc").textContent=S.votes;
+
+/* home-screen icon (iOS reads this when adding to Home Screen) */
+try{
+  var c=document.createElement("canvas");c.width=c.height=180;var x=c.getContext("2d");
+  x.fillStyle="#faf9f6";x.fillRect(0,0,180,180);x.strokeStyle="#8a6a1f";x.lineWidth=9;x.beginPath();x.arc(90,62,20,0,7);x.stroke();
+  x.fillStyle="#c0392b";x.font="86px Anton,Impact,sans-serif";x.textAlign="center";x.fillText("SC",90,150);
+  $("icon").href=c.toDataURL("image/png");
+}catch(e){}
+</script>
+</body>
+</html>
