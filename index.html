@@ -10,64 +10,113 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="theme-color" content="#faf9f6">
 <link rel="apple-touch-icon" id="icon" href="">
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#faf9f6;--card:#fff;--ink:#1b1a17;--mute:#9a968c;--gold:#8a6a1f;--red:#c0392b;--line:#e8e5dc;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+:root{--bg:#faf9f6;--card:#fff;--ink:#1b1a17;--mute:#9a968c;--gold:#8a6a1f;--red:#c0392b;--line:#e8e5dc;--ez:cubic-bezier(.2,.7,.2,1);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15140f;--card:#201f19;--ink:#f2efe6;--mute:#8d897e;--gold:#d4a73f;--red:#e0584a;--line:#34322a}}
 :root[data-theme="dark"]{--bg:#15140f;--card:#201f19;--ink:#f2efe6;--mute:#8d897e;--gold:#d4a73f;--red:#e0584a;--line:#34322a}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Inter,-apple-system,Helvetica,Arial,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px))}
-.wrap{max-width:560px;margin:0 auto;padding:18px 20px}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 16px/1.5 Inter,-apple-system,Helvetica,Arial,sans-serif;padding-bottom:calc(76px + env(safe-area-inset-bottom,0px));overflow-x:hidden}
+body::before{content:"";position:fixed;inset:-20%;z-index:-1;pointer-events:none;background:radial-gradient(40% 35% at 20% 15%,color-mix(in srgb,var(--gold) 18%,transparent),transparent),radial-gradient(35% 30% at 85% 70%,color-mix(in srgb,var(--red) 11%,transparent),transparent);animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,6%) scale(1.12)}}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:600px;margin:0 auto;padding:18px 20px}
 .logo{font:400 22px Anton,Impact,sans-serif;letter-spacing:.02em;display:flex;align-items:center;gap:8px;text-transform:uppercase}
-.logo i{width:12px;height:12px;border:2px solid var(--gold);border-radius:50%}
-h1{font:400 40px/1.1 Inter,sans-serif;letter-spacing:-.02em;margin:28px 0 12px;font-weight:500}
-h1 em{font-style:normal;color:var(--gold)}
-h2{font:500 26px/1.2 Inter;letter-spacing:-.01em;margin:6px 0 10px}
+.logo i{width:12px;height:12px;border:2px solid var(--gold);border-radius:50%;position:relative}
+.logo i::after{content:"";position:absolute;inset:-2px;border:2px solid var(--gold);border-radius:50%;animation:ring 2.8s ease-out infinite}
+@keyframes ring{from{transform:scale(1);opacity:.7}to{transform:scale(2.4);opacity:0}}
+h1{font:800 clamp(38px,11.5vw,60px)/1 Inter,sans-serif;letter-spacing:-.035em;margin:30px 0 16px;text-wrap:balance}
+h1 em{font-style:normal;padding:0 .06em;-webkit-box-decoration-break:clone;box-decoration-break:clone;background:linear-gradient(color-mix(in srgb,var(--gold) 42%,transparent),color-mix(in srgb,var(--gold) 42%,transparent)) 0 92%/0 .4em no-repeat;animation:mark 1s 1s var(--ez) forwards}
+@keyframes mark{to{background-size:100% .4em}}
+h2{font:700 26px/1.2 Inter;letter-spacing:-.02em;margin:6px 0 10px}
 p{color:var(--mute);margin:0 0 14px}
-.btn{border:0;border-radius:12px;padding:13px 18px;font:700 15px Inter;background:var(--ink);color:var(--bg);cursor:pointer}
+.up{animation:up .9s var(--ez) both;animation-delay:calc(var(--i,0)*120ms)}
+@keyframes up{from{opacity:0;transform:translateY(22px)}}
+.btn{border:0;border-radius:12px;padding:13px 18px;font:700 15px Inter;background:var(--ink);color:var(--bg);cursor:pointer;transition:transform .2s var(--ez),box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.2)}
+.btn:active{transform:scale(.96)}
 .btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.ghost:hover{border-color:var(--ink);box-shadow:none}
 .btn.sm{padding:9px 13px;font-size:13px}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;margin:12px 0;transition:border-color .3s,box-shadow .3s}
 .big{font:400 34px Anton,Impact,sans-serif;color:var(--red)}
+.step{position:relative;overflow:hidden;padding-left:22px}
+.step::before{content:"";position:absolute;left:0;top:0;bottom:0;width:5px;background:repeating-linear-gradient(var(--red) 0 7px,transparent 7px 14px)}
+.step:hover{box-shadow:0 12px 28px rgba(0,0,0,.1)}
+.js .rv{opacity:0;transform:translateY(34px) rotate(var(--r,2deg))}
+.rv.in{opacity:1;transform:none;transition:opacity .7s,transform .9s var(--ez)}
+.step:nth-of-type(odd){--r:-2.5deg}.step:nth-of-type(even){--r:2.5deg}
+.pro{position:relative;overflow:hidden}
+.pro::after{content:"";position:absolute;top:0;bottom:0;left:-80%;width:60%;pointer-events:none;background:linear-gradient(100deg,transparent,color-mix(in srgb,var(--gold) 26%,transparent),transparent);animation:shine 5s 1.5s infinite}
+@keyframes shine{to{left:130%}}
+.hang{display:flow-root;position:relative;margin-top:84px;transform-origin:50% -60px;animation:swing 7s ease-in-out infinite}
+.hang::before{content:"";position:absolute;left:50%;top:-60px;width:2px;height:99px;margin-left:-1px;background:var(--ink)}
+@keyframes swing{0%,100%{transform:rotate(-2.8deg)}50%{transform:rotate(2.8deg)}}
+.hang .tag{transform:none;animation:tagIn 1.1s .3s var(--ez) backwards}
 .tag{background:var(--card);border-radius:10px 10px 16px 16px;box-shadow:0 14px 30px rgba(0,0,0,.14);padding:18px 18px 14px;transform:rotate(-2deg);margin:22px 6px;position:relative;border:1px solid var(--line)}
-.tag:before{content:"";position:absolute;top:10px;left:50%;width:14px;height:14px;margin-left:-7px;border:2px solid var(--ink);border-radius:50%}
+.tag:before{content:"";position:absolute;top:10px;left:50%;width:14px;height:14px;margin-left:-7px;border:2px solid var(--ink);border-radius:50%;background:var(--bg)}
 .tag h3{font:400 30px Anton,Impact,sans-serif;text-align:center;margin:20px 0 10px;text-transform:uppercase}
+#lookOut.fx .tag{animation:tagIn .7s var(--ez) backwards}
+@keyframes tagIn{from{opacity:0;transform:translateY(-44px) rotate(-9deg)}}
 .ln{display:flex;justify-content:space-between;gap:10px;border-top:1px dashed var(--line);padding:8px 0;font:500 13px/1.3 ui-monospace,Menlo,monospace}
 .ln b{font-weight:500;text-align:right}
+#lookOut.fx .ln,.hang .ln{animation:lnIn .5s var(--ez) backwards}
+@keyframes lnIn{from{opacity:0;transform:translateX(-12px)}}
 .score{text-align:center;font:400 44px Anton,Impact;color:var(--red);margin-top:6px}
-.miss{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 10px 30px;transform:rotate(1.5deg)}
+.mq{overflow:hidden;margin:36px -20px 0;padding:14px 0;border-block:1px solid var(--line);transform:rotate(-1.5deg)}
+.mq div{display:flex;width:max-content;animation:mq 24s linear infinite}
+.mq span{font:400 34px/1 "Bebas Neue",Impact,sans-serif;letter-spacing:.04em;white-space:nowrap}
+.mq span::after{content:"";display:inline-block;width:10px;height:10px;border:2px solid var(--gold);border-radius:50%;margin:0 26px;vertical-align:middle}
+.mq span:nth-child(even){color:transparent;-webkit-text-stroke:1px var(--ink)}
+@keyframes mq{to{transform:translateX(-50%)}}
+.miss{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:0 0 10px 30px;transform:rotate(1.5deg);animation:up .6s .5s var(--ez) backwards}
 .miss small{display:block;color:var(--mute);font:500 11px ui-monospace,Menlo,monospace}
 .miss strong{color:var(--gold);font-weight:500;font-size:18px}
 .miss a{color:var(--red);font-size:13px;font-weight:700;text-decoration:none}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.item{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative}
-.item .ph{aspect-ratio:1;background-size:cover;background-position:center;display:grid;place-items:center;font:400 24px Anton}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;position:relative;animation:pop .5s var(--ez) backwards;transition:transform .25s var(--ez),box-shadow .25s}
+.item:hover{transform:translateY(-4px) rotate(-1deg);box-shadow:0 12px 24px rgba(0,0,0,.14)}
+.item.out{animation:out .26s forwards}
+@keyframes pop{from{opacity:0;transform:scale(.8) translateY(12px)}}
+@keyframes out{to{opacity:0;transform:scale(.7)}}
+.item .ph{aspect-ratio:1;background-size:cover;background-position:center;display:grid;place-items:center;font:400 24px Anton,Impact,Inter}
 .item div.n{padding:6px 8px;font-size:12px;line-height:1.25}
-.item button{position:absolute;top:4px;right:4px;border:0;background:rgba(0,0,0,.45);color:#fff;width:22px;height:22px;border-radius:50%;font-size:13px}
+.item button{position:absolute;top:4px;right:4px;border:0;background:rgba(0,0,0,.45);color:#fff;width:22px;height:22px;border-radius:50%;font-size:13px;cursor:pointer}
 label{display:block;font-size:12px;color:var(--mute);margin:10px 0 4px}
-input,select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:16px Inter}
-input[type=range]{padding:0}
+input,select{width:100%;padding:11px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:16px Inter;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus{outline:0;border-color:var(--gold);box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 25%,transparent)}
+input[type=range]{padding:0;accent-color:var(--red)}
 .chips{display:flex;gap:8px;flex-wrap:wrap}
-.chip{padding:8px 13px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 14px Inter}
-.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-nav{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
-nav button{flex:1;background:none;border:0;padding:11px 0 9px;color:var(--mute);font:500 11px Inter;display:flex;flex-direction:column;align-items:center;gap:2px}
-nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7}
+.chip{padding:8px 13px;border-radius:99px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:500 14px Inter;cursor:pointer;transition:transform .25s var(--ez),background .2s,color .2s}
+.chip:active{transform:scale(.92)}
+.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink);transform:scale(1.05)}
+nav{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-top:1px solid var(--line);display:flex;padding-bottom:env(safe-area-inset-bottom,0px);z-index:9}
+nav .ind{position:absolute;top:-1px;left:0;width:25%;height:3px;background:var(--red);border-radius:0 0 3px 3px;transform:translateX(calc(var(--i,0)*100%));transition:transform .5s cubic-bezier(.3,1.35,.5,1)}
+nav button{flex:1;background:none;border:0;padding:11px 0 9px;color:var(--mute);font:500 11px Inter;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;transition:color .25s}
+nav button svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;transition:transform .4s cubic-bezier(.3,1.5,.5,1)}
 nav button.on{color:var(--red)}
-.screen{display:none}.screen.on{display:block}
+nav button.on svg{transform:translateY(-3px) scale(1.15)}
+.screen{display:none}.screen.on{display:block;animation:scr .5s var(--ez)}
+@keyframes scr{from{opacity:0;transform:translateY(16px)}}
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
-.opt{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;text-align:left;color:var(--ink);font:500 14px/1.45 Inter;box-shadow:0 8px 20px rgba(0,0,0,.08);min-height:200px;position:relative;transition:transform .2s}
+.opt{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;text-align:left;color:var(--ink);font:500 14px/1.45 Inter;box-shadow:0 8px 20px rgba(0,0,0,.08);min-height:200px;position:relative;isolation:isolate;overflow:hidden;cursor:pointer;transition:transform .35s var(--ez),opacity .35s,border-color .35s;animation:pop .5s var(--ez) backwards}
+.opt:nth-child(2){animation-delay:.1s}
 .opt:active{transform:scale(.97)}
 .opt h4{margin:0 0 8px;font:400 13px ui-monospace,Menlo,monospace;color:var(--mute)}
 .opt .pct{font:400 38px Anton;position:absolute;left:14px;bottom:10px;color:var(--red)}
+.opt .fill{position:absolute;left:0;right:0;bottom:0;height:0;z-index:-1;background:color-mix(in srgb,var(--red) 16%,transparent);transition:height .9s var(--ez)}
+.opt.win{transform:scale(1.03);border-color:var(--red)}
+.opt.lose{opacity:.72}
 .opt.lose .pct{color:var(--mute)}
+.opt.lose .fill{background:color-mix(in srgb,var(--mute) 14%,transparent)}
 .price{font:500 28px Inter}
 ul.f{padding-left:18px;margin:10px 0 14px}
-.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
-.toast.on{opacity:1}
+.toast{position:fixed;left:50%;bottom:calc(92px + env(safe-area-inset-bottom,0px));transform:translate(-50%,12px) scale(.96);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:99px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .25s,transform .35s var(--ez);z-index:20}
+.toast.on{opacity:1;transform:translate(-50%,0)}
 .hint{border:1px dashed var(--gold);border-radius:14px;padding:12px 14px;font-size:14px;color:var(--mute)}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}h1 em{background-size:100% .4em}.js .rv{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -75,15 +124,16 @@ ul.f{padding-left:18px;margin:10px 0 14px}
 
 <section class="screen on" id="s-home">
   <div class="logo"><i></i>StyleClash</div>
-  <h1>Твоя шафа <em>розумніша за стиліста</em></h1>
-  <p>Сфотографуй одяг один раз — і щодня отримуй готовий образ, батли луків з друзями та підказку, що докупити, щоб вигляд був на 10 балів.</p>
-  <div class="row"><button class="btn" data-go="look">Зібрати перший лук</button><button class="btn ghost" data-go="how">Як це працює</button></div>
+  <h1 class="up" style="--i:1">Твоя шафа <em>розумніша за стиліста</em></h1>
+  <p class="up" style="--i:2">Сфотографуй одяг один раз — і щодня отримуй готовий образ, батли луків з друзями та підказку, що докупити, щоб вигляд був на 10 балів.</p>
+  <div class="row up" style="--i:3"><button class="btn" data-go="look">Зібрати перший лук</button><button class="btn ghost" data-go="how">Як це працює</button></div>
 
-  <div class="tag"><h3>Look #042</h3>
+  <div class="hang"><div class="tag"><h3>Look #042</h3>
     <div class="ln"><span>СКЛАД</span><b>ТВОЯ ШАФА</b></div>
     <div class="ln"><span>ПОГОДА</span><b>+14°, ВІТЕР</b></div>
     <div class="ln"><span>ПРИВІД</span><b>ПОБАЧЕННЯ</b></div>
-    <div class="score">10/10</div></div>
+    <div class="score">10/10</div></div></div>
+  <div class="mq" aria-hidden="true"><div><span>Шафа тріщить</span><span>Нічого вдягти</span><span>Лук 10/10</span><span>Style Battles</span><span>Шафа тріщить</span><span>Нічого вдягти</span><span>Лук 10/10</span><span>Style Battles</span></div></div>
 
   <p style="text-align:center;color:var(--ink);font-size:20px;margin:30px 0 4px">Шафа тріщить, а вдягти нічого.</p>
   <p style="text-align:center;color:var(--red);font:500 12px ui-monospace,Menlo,monospace">кожен ранок, мільйони людей</p>
@@ -91,17 +141,17 @@ ul.f{padding-left:18px;margin:10px 0 14px}
   <div id="how" style="margin-top:34px">
     <h2>Від фото до готового луку — за чотири кроки</h2>
     <p>Жодного ручного сортування: застосунок розбирає одяг за категоріями, кольорами й сезонами.</p>
-    <div class="card"><span class="big">01</span><br><b>Скануєш гардероб</b><p style="margin:4px 0 0">Додай фото речей — кожна річ потрапить у цифрову шафу.</p></div>
-    <div class="card"><span class="big">02</span><br><b>ШІ будує образи</b><p style="margin:4px 0 0">Враховує погоду, привід та те, що ти вже носив цього тижня.</p></div>
-    <div class="card"><span class="big">03</span><br><b>Докуповуєш те, чого бракує</b><p style="margin:4px 0 0">Якщо для луку 10/10 не вистачає однієї речі — ось пряме посилання на неї.</p></div>
-    <div class="card"><span class="big">04</span><br><b>Виставляєш у батл</b><p style="margin:4px 0 0">Друзі та спільнота свайпають образи — найкращі потрапляють у топ тижня.</p></div>
+    <div class="card step rv"><span class="big">01</span><br><b>Скануєш гардероб</b><p style="margin:4px 0 0">Додай фото речей — кожна річ потрапить у цифрову шафу.</p></div>
+    <div class="card step rv"><span class="big">02</span><br><b>ШІ будує образи</b><p style="margin:4px 0 0">Враховує погоду, привід та те, що ти вже носив цього тижня.</p></div>
+    <div class="card step rv"><span class="big">03</span><br><b>Докуповуєш те, чого бракує</b><p style="margin:4px 0 0">Якщо для луку 10/10 не вистачає однієї речі — ось пряме посилання на неї.</p></div>
+    <div class="card step rv"><span class="big">04</span><br><b>Виставляєш у батл</b><p style="margin:4px 0 0">Друзі та спільнота свайпають образи — найкращі потрапляють у топ тижня.</p></div>
   </div>
 
   <h2 style="margin-top:34px">Почни безкоштовно, прокачайся до особистого стиліста</h2>
   <div class="card"><b style="color:var(--gold)">Без картки</b><h2 style="margin:4px 0">Базовий</h2><div class="price">0 ₴ <small style="font-size:14px;color:var(--mute)">/ завжди</small></div>
     <ul class="f"><li>Цифровий гардероб без ліміту</li><li>Один лук на день</li><li>Участь у Style Battles</li></ul>
     <button class="btn ghost" style="width:100%" data-go="look">Користуватись безкоштовно</button></div>
-  <div class="card" style="border-color:var(--red)"><b style="color:var(--red)">Premium</b><h2 style="margin:4px 0">Особистий стиліст</h2><div class="price">від 249 ₴ <small style="font-size:14px;color:var(--mute)">/ місяць</small></div>
+  <div class="card pro" style="border-color:var(--red)"><b style="color:var(--red)">Premium</b><h2 style="margin:4px 0">Особистий стиліст</h2><div class="price">від 249 ₴ <small style="font-size:14px;color:var(--mute)">/ місяць</small></div>
     <ul class="f"><li>Безліміт образів під погоду й привід</li><li>Аналіз фігури та кольоротипу</li><li>Ранній доступ до дропів брендів-партнерів</li></ul>
     <button class="btn" style="width:100%" id="prem">Оформити Premium</button></div>
   <p style="font-size:14px"><b style="color:var(--gold)">Для брендів:</b> розмісти нову колекцію в рекомендаціях AI-стиліста і потрап у гардероби сотень тисяч користувачів.</p>
@@ -140,7 +190,7 @@ ul.f{padding-left:18px;margin:10px 0 14px}
 </section>
 </div>
 
-<nav id="nav">
+<nav id="nav"><i class="ind"></i>
   <button data-go="home" class="on"><svg viewBox="0 0 24 24"><path d="M4 11l8-7 8 7v9H4z"/></svg>Головна</button>
   <button data-go="look"><svg viewBox="0 0 24 24"><path d="M12 3l9 9-9 9-9-9z"/></svg>Лук</button>
   <button data-go="wardrobe"><svg viewBox="0 0 24 24"><path d="M9 4l3 2 3-2 5 4-2 3-2-1v10H8V10l-2 1-2-3z"/></svg>Шафа</button>
@@ -149,6 +199,7 @@ ul.f{padding-left:18px;margin:10px 0 14px}
 <div class="toast" id="toast"></div>
 
 <script>
+document.documentElement.classList.add("js");
 var COLORS={"Білий":"#f4f4f0","Чорний":"#1b1a17","Сірий":"#8c8c8c","Бежевий":"#d8c7a5","Синій":"#2f4b7c","Червоний":"#c0392b","Зелений":"#4b7a4f"};
 var NEUTRAL=["Білий","Чорний","Сірий","Бежевий"];
 var CATS={top:"Верх",bottom:"Низ",shoes:"Взуття",outer:"Верхній одяг"};
@@ -168,6 +219,7 @@ function go(n){
   if(n==="how"){go("home");setTimeout(function(){$("how").scrollIntoView({behavior:"smooth"})},30);return}
   document.querySelectorAll(".screen").forEach(function(s){s.classList.toggle("on",s.id==="s-"+n)});
   document.querySelectorAll("#nav button").forEach(function(b){b.classList.toggle("on",b.dataset.go===n)});
+  var bs=[].slice.call(document.querySelectorAll("#nav button"));$("nav").style.setProperty("--i",Math.max(0,bs.findIndex(function(b){return b.dataset.go===n})));
   window.scrollTo(0,0);
   if(n==="look")makeLook();if(n==="wardrobe")renderGrid();if(n==="battle")newPair();
 }
@@ -180,11 +232,11 @@ var sel=$("f-color");Object.keys(COLORS).forEach(function(c){sel.add(new Option(
 function renderGrid(){
   $("cnt").textContent="("+S.items.length+")";
   $("grid").innerHTML=S.items.length?"":'<div class="hint" style="grid-column:1/-1">Шафа порожня. Додай першу річ — і лук збереться сам.</div>';
-  S.items.forEach(function(it){
-    var d=document.createElement("div");d.className="item";
+  S.items.forEach(function(it,ix){
+    var d=document.createElement("div");d.className="item";d.style.animationDelay=Math.min(ix,12)*45+"ms";
     d.innerHTML='<div class="ph" style="background-color:'+COLORS[it.color]+(it.photo?';background-image:url('+it.photo+')':'')+'">'+(it.photo?"":'<span style="color:'+(it.color==="Білий"||it.color==="Бежевий"?"#555":"#fff")+'">'+CATS[it.cat][0]+'</span>')+'</div><div class="n"><b></b><br><span style="color:var(--mute)">'+CATS[it.cat]+' · '+it.color+'</span></div><button aria-label="Видалити">×</button>';
     d.querySelector("b").textContent=it.name;
-    d.querySelector("button").onclick=function(){S.items=S.items.filter(function(x){return x.id!==it.id});save();renderGrid()};
+    d.querySelector("button").onclick=function(){d.classList.add("out");setTimeout(function(){S.items=S.items.filter(function(x){return x.id!==it.id});save();renderGrid()},260)};
     $("grid").appendChild(d);
   });
 }
@@ -206,7 +258,7 @@ $("f-add").onclick=function(){
 /* look engine */
 var occ="Прогулянка",cur=null,nr=42;
 Object.keys(OCC).forEach(function(o){var b=document.createElement("button");b.className="chip"+(o===occ?" on":"");b.textContent=o;b.onclick=function(){occ=o;document.querySelectorAll("#occ .chip").forEach(function(c){c.classList.toggle("on",c.textContent===o)});makeLook()};$("occ").appendChild(b)});
-$("temp").oninput=function(){$("t-val").textContent=this.value;makeLook()};
+$("temp").oninput=function(){$("t-val").textContent=this.value;makeLook(1)};
 function pick(cat,temp,o){
   var list=S.items.filter(function(i){return i.cat===cat});if(!list.length)return null;
   var now=Date.now(),best=null,bs=-9;
@@ -236,12 +288,12 @@ function lookHTML(L){
   return h;
 }
 function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-function makeLook(){
+function makeLook(q){
   var t=+$("temp").value;
   if(!S.items.length){$("lookOut").innerHTML='<div class="hint" style="margin:14px 0">Спершу додай речі в шафу.</div>';$("lookBtns").style.display="none";return}
-  $("lookBtns").style.display="flex";cur=genLook(occ,t);$("lookOut").innerHTML=lookHTML(cur);
+  $("lookBtns").style.display="flex";cur=genLook(occ,t);$("lookOut").classList.toggle("fx",!q);$("lookOut").innerHTML=lookHTML(cur);animTag($("lookOut"),!q);
 }
-$("again").onclick=makeLook;
+$("again").onclick=function(){makeLook()};
 $("wear").onclick=function(){if(!cur)return;Object.keys(cur.parts).forEach(function(c){S.worn[cur.parts[c].id]=Date.now()});save();toast("Записано — завтра запропонуємо інше")};
 
 /* battles */
@@ -258,9 +310,19 @@ function vote(i){
   var o=document.querySelectorAll("#vs .opt");if(o[0].querySelector(".pct"))return;
   S.votes++;save();$("vc").textContent=S.votes;
   var p=[base[0],base[1]];p[i]=Math.min(95,p[i]+8);p[1-i]=100-p[i];
-  o.forEach(function(b,k){var s=document.createElement("span");s.className="pct";s.textContent=p[k]+"%";b.appendChild(s);if(k!==i)b.classList.add("lose")});
+  o.forEach(function(b,k){var s=document.createElement("span");s.className="pct";s.textContent="0%";b.appendChild(s);var f=document.createElement("i");f.className="fill";b.insertBefore(f,b.firstChild);b.classList.add(k===i?"win":"lose");requestAnimationFrame(function(){requestAnimationFrame(function(){f.style.height=p[k]+"%"})});var t0=performance.now();(function g(n){var q=Math.min(1,(n-t0)/700);s.textContent=Math.round(p[k]*q)+"%";if(q<1)requestAnimationFrame(g)})(t0)});
 }
 $("next").onclick=newPair;$("vc").textContent=S.votes;
+
+/* animations */
+function animTag(root,fx){
+  root.querySelectorAll(".ln").forEach(function(l,i){l.style.animationDelay=(.2+i*.07)+"s"});
+  if(!fx||matchMedia("(prefers-reduced-motion:reduce)").matches)return;
+  root.querySelectorAll(".score").forEach(function(el){var to=parseInt(el.textContent),t0=performance.now();(function f(n){var k=Math.min(1,(n-t0)/800);el.textContent=Math.round(to*k)+"/10";if(k<1)requestAnimationFrame(f)})(t0)});
+}
+animTag(document.querySelector(".hang"),1);
+var rv=document.querySelectorAll(".rv");
+if("IntersectionObserver" in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.2});rv.forEach(function(e){io.observe(e)})}else rv.forEach(function(e){e.classList.add("in")});
 
 /* home-screen icon (iOS reads this when adding to Home Screen) */
 try{
